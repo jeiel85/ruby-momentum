@@ -36,7 +36,7 @@ Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는
 
 ```bash
 # 저장소 클론
-git clone https://github.com/<your-username>/ruby-momentum.git
+git clone https://github.com/jeiel85/ruby-momentum.git
 cd ruby-momentum
 
 # 의존성 설치
