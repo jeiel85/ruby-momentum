@@ -1,97 +1,97 @@
 # Ruby Momentum
 
-A Ruby on Rails social posting application with Google OAuth authentication, real-time updates, and image upload support.
+Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는 Ruby on Rails 소셜 포스팅 애플리케이션입니다.
 
-## Features
+## 주요 기능
 
-- **Google OAuth Login** — Sign in with your Google account via Devise + OmniAuth
-- **Posts** — Create, read, update, and delete posts with optional image attachments
-- **Real-time Updates** — New posts appear instantly via ActionCable (Hotwire Turbo Streams)
-- **Responsive UI** — Styled with Tailwind CSS
-- **Production Ready** — Deployed on [Render](https://render.com) with PostgreSQL
+- **Google 소셜 로그인** — Devise + OmniAuth를 통한 Google 계정 로그인
+- **포스트 관리** — 이미지 첨부가 가능한 게시글 작성, 조회, 수정, 삭제
+- **실시간 업데이트** — ActionCable(Hotwire Turbo Streams)을 통해 새 게시글이 즉시 반영
+- **반응형 UI** — Tailwind CSS로 스타일링된 모던한 인터페이스
+- **프로덕션 배포** — [Render](https://render.com) + PostgreSQL 환경으로 배포
 
-## Tech Stack
+## 기술 스택
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Ruby on Rails 8.1 |
-| Language | Ruby 3.4.9 |
-| Auth | Devise + OmniAuth Google OAuth2 |
-| Frontend | Hotwire (Turbo + Stimulus) + Tailwind CSS |
-| Database | PostgreSQL (production) / SQLite (development) |
-| File Storage | Active Storage |
-| Real-time | ActionCable |
-| Deployment | Render |
+| 구분 | 기술 |
+|------|------|
+| 프레임워크 | Ruby on Rails 8.1 |
+| 언어 | Ruby 3.4.9 |
+| 인증 | Devise + OmniAuth Google OAuth2 |
+| 프론트엔드 | Hotwire (Turbo + Stimulus) + Tailwind CSS |
+| 데이터베이스 | PostgreSQL (운영) / SQLite (개발) |
+| 파일 저장소 | Active Storage |
+| 실시간 통신 | ActionCable |
+| 배포 | Render |
 
-## Getting Started
+## 시작하기
 
-### Prerequisites
+### 사전 요구사항
 
 - Ruby 3.4.9
 - Bundler
-- SQLite3 (development)
-- A Google OAuth2 client ID and secret
+- SQLite3 (개발 환경)
+- Google OAuth2 클라이언트 ID 및 시크릿
 
-### Setup
+### 설치 및 실행
 
 ```bash
-# Clone the repo
+# 저장소 클론
 git clone https://github.com/<your-username>/ruby-momentum.git
 cd ruby-momentum
 
-# Install dependencies
+# 의존성 설치
 bundle install
 
-# Configure environment variables
+# 환경변수 설정
 cp .env.example .env
-# Edit .env and fill in your Google OAuth credentials:
+# .env 파일을 열어 Google OAuth 정보를 입력하세요:
 # GOOGLE_CLIENT_ID=...
 # GOOGLE_CLIENT_SECRET=...
 
-# Set up the database
+# 데이터베이스 생성 및 마이그레이션
 rails db:create db:migrate db:seed
 
-# Start the development server
+# 개발 서버 실행
 bin/dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+브라우저에서 [http://localhost:3000](http://localhost:3000)에 접속하세요.
 
-## Environment Variables
+## 환경변수
 
-| Variable | Description |
-|----------|-------------|
-| `GOOGLE_CLIENT_ID` | Google OAuth2 client ID |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth2 client secret |
-| `DATABASE_URL` | PostgreSQL connection URL (production) |
-| `SECRET_KEY_BASE` | Rails secret key base (production) |
+| 변수명 | 설명 |
+|--------|------|
+| `GOOGLE_CLIENT_ID` | Google OAuth2 클라이언트 ID |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth2 클라이언트 시크릿 |
+| `DATABASE_URL` | PostgreSQL 연결 URL (운영 환경) |
+| `SECRET_KEY_BASE` | Rails 시크릿 키 (운영 환경) |
 
-## Project Structure
+## 프로젝트 구조
 
 ```
 app/
 ├── controllers/
-│   ├── posts_controller.rb         # CRUD for posts
+│   ├── posts_controller.rb                      # 게시글 CRUD
 │   └── users/
-│       └── omniauth_callbacks_controller.rb  # Google OAuth callback
+│       └── omniauth_callbacks_controller.rb     # Google OAuth 콜백 처리
 ├── models/
-│   ├── user.rb                     # Devise + Google OmniAuth
-│   └── post.rb                     # Post with image attachment & Turbo broadcasts
+│   ├── user.rb                                  # Devise + Google OmniAuth
+│   └── post.rb                                  # 게시글 (이미지 첨부 + Turbo 브로드캐스트)
 └── views/
-    └── posts/                      # Post views
+    └── posts/                                   # 게시글 뷰
 ```
 
-## Deployment (Render)
+## Render 배포
 
-This app is configured for deployment on Render with:
+이 앱은 Render 배포를 위해 다음과 같이 구성되어 있습니다.
 
-- **Web Service** — Puma web server
-- **Database** — Render PostgreSQL (production)
-- **Build command** — `bundle install && rails assets:precompile && rails db:migrate`
-- **Start command** — `bundle exec puma -C config/puma.rb`
+- **Web Service** — Puma 웹 서버
+- **Database** — Render PostgreSQL
+- **빌드 명령어** — `bundle install && rails assets:precompile && rails db:migrate`
+- **시작 명령어** — `bundle exec puma -C config/puma.rb`
 
-Set the environment variables listed above in the Render dashboard before deploying.
+배포 전 Render 대시보드에서 위 환경변수를 설정해주세요.
 
-## License
+## 라이선스
 
 MIT
