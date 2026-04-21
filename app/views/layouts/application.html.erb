@@ -28,6 +28,18 @@
     </style>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script>
+      function toggleReportMenu(id) {
+        var menu = document.getElementById('report-menu-' + id);
+        menu.classList.toggle('hidden');
+        document.addEventListener('click', function closeMenu(e) {
+          if (!e.target.closest('#report-menu-' + id) && !e.target.closest('#report-dropdown-' + id)) {
+            menu.classList.add('hidden');
+            document.removeEventListener('click', closeMenu);
+          }
+        });
+      }
+    </script>
   </head>
 
   <body>
