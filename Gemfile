@@ -5,7 +5,7 @@ gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record in development/test
-gem "sqlite3", ">= 2.1", groups: [:development, :test]
+gem "sqlite3", ">= 2.1", groups: [ :development, :test ]
 
 # Use PostgreSQL as the database for production
 gem "pg", "~> 1.1", group: :production
@@ -24,7 +24,7 @@ gem "jbuilder"
 
 gem "devise"
 gem "omniauth-google-oauth2"
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

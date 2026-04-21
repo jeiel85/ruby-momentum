@@ -24,3 +24,8 @@
   - `index.html.erb`: 포스트 본인 여부에 따른 수정/팁 버튼 조건부 표시 로직 추가
 - 실행 환경 최적화:
   - `bin/` 디렉토리 내의 모든 Ruby 스크립트에서 shebang 라인을 `#!/usr/bin/env ruby.exe`에서 `#!/usr/bin/env ruby`로 수정하여 호환성 확보
+
+## 2026-04-22
+- 코드 스타일 및 린트 오류 수정:
+  - `LikesController`, `CommentsController`, `BookmarksController`, `Admin::DashboardController`: 파일 끝에 누락된 줄 바꿈(newline) 추가
+  - `CommentsController`, `Gemfile`: 배열 대괄호 내 공백 추가 (`Layout/SpaceInsideArrayBrackets` 준수)
