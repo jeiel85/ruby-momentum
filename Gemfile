@@ -37,6 +37,9 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Rate limiting and throttling [https://github.com/rack/rack-attack]
+gem "rack-attack"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
