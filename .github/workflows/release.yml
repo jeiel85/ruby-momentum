@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  # Auto-merge Dependabot PRs
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploy on merge to master
+  deploy:
+    needs: []
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Deploy to Render (example)
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          # Example Render deployment via API
+          # Replace with your actual deployment logic
+          echo "Deploying to production..."
+          # curl -X PUT https://api.render.com/v1/services/$RENDER_SERVICE_ID/builds \
+          #   -H "Authorization: Bearer $RENDER_API_KEY" \
+          #   -H "Content-Type: application/json" \
+          #   -d '{"clearCache": true}'
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+  # Notify on deployment (example Slack notification)
+  notify:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: always() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Send deployment notification
+        run: |
+          echo "Deployment completed with status: ${{ job.status }}"
+          # Add Slack notification here:
+          # curl -X POST -H 'Content-type: application/json' \
+          #   --data '{"text":"Deployment ${{ job.status }} for Momentum!"}' \
+          #   ${{ secrets.SLACK_WEBHOOK }}
