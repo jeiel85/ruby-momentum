@@ -88,3 +88,4 @@ class TipsController < ApplicationController
     tip.update!(status: "failed")
   end
 end
+
