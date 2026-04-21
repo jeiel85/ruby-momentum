@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    return redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
+    redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
   end
 
   # POST /posts or /posts.json
@@ -38,7 +38,7 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    return redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
+    redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
 
     respond_to do |format|
       if @post.update(post_params)
@@ -53,7 +53,7 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    return redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
+    redirect_to root_path, alert: "Not authorized" unless @post.user == current_user
     @post.destroy!
 
     respond_to do |format|

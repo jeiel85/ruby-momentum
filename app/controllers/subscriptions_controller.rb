@@ -25,10 +25,10 @@ class SubscriptionsController < ApplicationController
       subscription_data: {
         metadata: { user_id: current_user.id }
       },
-      line_items: [{
+      line_items: [ {
         price: Rails.application.config.stripe[:"#{plan}_price_id"],
         quantity: 1
-      }],
+      } ],
       success_url: subscription_url + "?status=success",
       cancel_url: subscription_url + "?status=cancelled"
     )

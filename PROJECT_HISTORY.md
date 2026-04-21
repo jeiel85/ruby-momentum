@@ -32,5 +32,8 @@
 
 ## 2026-04-22
 - 코드 스타일 및 린트 오류 수정:
+  - `Users::OmniauthCallbacksController`: `Style/StringLiterals` 준수를 위해 홑따옴표를 큰따옴표로 수정
   - `LikesController`, `CommentsController`, `BookmarksController`, `Admin::DashboardController`: 파일 끝에 누락된 줄 바꿈(newline) 추가
   - `CommentsController`, `Gemfile`: 배열 대괄호 내 공백 추가 (`Layout/SpaceInsideArrayBrackets` 준수)
+- 모델 버그 수정:
+  - `Post` 모델: `validates :validate_image`를 `validate :validate_image`로 수정하여 사용자 정의 유효성 검사 메서드가 올바르게 호출되도록 수정

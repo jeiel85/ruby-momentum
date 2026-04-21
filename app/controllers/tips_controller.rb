@@ -1,6 +1,6 @@
 class TipsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_recipient, only: [:create]
+  before_action :set_recipient, only: [ :create ]
 
   def index
     @tips = current_user.received_tips.succeeded.order(created_at: :desc)
