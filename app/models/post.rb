@@ -31,8 +31,6 @@ class Post < ApplicationRecord
   private
 
   def validate_image
-    return unless image.attached?
-
     unless image.blob.filename.present?
       errors.add(:image, "filename must be present")
     end
