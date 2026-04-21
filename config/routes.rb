@@ -24,6 +24,25 @@ Rails.application.routes.draw do
     end
   end
 
+  # Subscription routes
+  resource :subscription, only: [:show, :create] do
+    member do
+      delete :cancel
+    end
+  end
+
+  # Tip routes
+  resources :tips, only: [:index, :create] do
+    collection do
+      post :webhook
+    end
+  end
+
+  # User tips (tip a specific user)
+  resources :users, only: [] do
+    resources :tips, only: [:create]
+  end
+
   root "posts#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
