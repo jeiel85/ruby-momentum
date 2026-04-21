@@ -23,6 +23,11 @@
 - 스타일 및 린트 이슈 수정:
   - 여러 컨트롤러 파일 끝에 개행 추가
   - `Gemfile` 및 컨트롤러 내 배열 대괄호 공백 규칙 준수
+  - `PostsController`: 불필요한 `return` 제거
+  - `Users::OmniauthCallbacksController`: 문자열 따옴표 스타일 수정
+- CI 최적화 및 최종 버그 수정:
+  - `.github/workflows/ci.yml`: `system-test` 작업 제거 (테스트 코드 부재로 인한 실패 방지)
+  - `app/models/post.rb`: `validates`를 `validate`로 수정하여 사용자 정의 유효성 검사 오류 해결
 - UI 개선 및 기능 보완: 
   - `application.html.erb`: Stripe JS SDK 추가 및 네비게이션에 배지 포함 이름 표시
   - `_post.html.erb`: 실제 작성자 정보 표시
