@@ -22,3 +22,5 @@
   - `application.html.erb`: Stripe JS SDK 추가 및 네비게이션에 배지 포함 이름 표시
   - `_post.html.erb`: 실제 작성자 정보 표시
   - `index.html.erb`: 포스트 본인 여부에 따른 수정/팁 버튼 조건부 표시 로직 추가
+- 실행 환경 최적화:
+  - `bin/` 디렉토리 내의 모든 Ruby 스크립트에서 shebang 라인을 `#!/usr/bin/env ruby.exe`에서 `#!/usr/bin/env ruby`로 수정하여 호환성 확보
