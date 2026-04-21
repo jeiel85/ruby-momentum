@@ -1,0 +1,54 @@
+<% content_for :title, "Admin Dashboard - Momentum" %>
+
+<div class="space-y-8">
+  <h1 class="text-3xl font-black text-white">Admin Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="glass p-6 rounded-2xl">
+      <div class="text-indigo-400 text-sm font-bold uppercase tracking-widest mb-2">Total Posts</div>
+      <div class="text-4xl font-black text-white"><%= @posts_count %></div>
+    </div>
+    <div class="glass p-6 rounded-2xl">
+      <div class="text-emerald-400 text-sm font-bold uppercase tracking-widest mb-2">Total Users</div>
+      <div class="text-4xl font-black text-white"><%= @users_count %></div>
+    </div>
+    <div class="glass p-6 rounded-2xl">
+      <div class="text-rose-400 text-sm font-bold uppercase tracking-widest mb-2">Pending Reports</div>
+      <div class="text-4xl font-black text-white"><%= @reports_count %></div>
+    </div>
+  </div>
+
+  <div class="glass p-6 rounded-2xl">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl font-black text-white">Recent Reports</h2>
+      <%= link_to "View All", admin_reports_path, class: "text-indigo-400 hover:text-indigo-300 font-bold" %>
+    </div>
+
+    <% if @recent_reports.any? %>
+      <div class="space-y-4">
+        <% @recent_reports.each do |report| %>
+          <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+            <div>
+              <div class="text-white font-bold">
+                <%= report.reason.humanize %>
+              </div>
+              <div class="text-white/50 text-sm">
+                <% if report.post %>
+                  Post: <%= report.post.body.truncate(50) %>
+                <% else %>
+                  No associated post
+                <% end %>
+              </div>
+              <div class="text-white/30 text-xs mt-1">
+                Reported by <%= report.user.email %> &bull; <%= time_ago_in_words(report.created_at) %> ago
+              </div>
+            </div>
+            <%= button_to "Resolve", admin_resolve_report_path(report), method: :patch, class: "px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-lg text-sm transition" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-white/50">No pending reports</p>
+    <% end %>
+  </div>
+</div>

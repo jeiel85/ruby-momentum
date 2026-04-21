@@ -3,6 +3,12 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
+  namespace :admin do
+    get "dashboard" => "dashboard#index"
+    get "reports" => "dashboard#reports"
+    patch "reports/:id/resolve" => "dashboard#resolve_report", as: :resolve_report
+  end
+
   resources :posts do
     resources :reports, only: :create
   end
