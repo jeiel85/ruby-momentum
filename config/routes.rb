@@ -11,7 +11,12 @@ Rails.application.routes.draw do
 
   resources :posts do
     resources :reports, only: :create
+    resources :comments, only: :create
+    resource :like, only: [:create, :destroy]
+    resource :bookmark, only: [:create, :destroy]
   end
+
+  resources :bookmarks, only: :index
 
   resources :reports, only: [] do
     member do
