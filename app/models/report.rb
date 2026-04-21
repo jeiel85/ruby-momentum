@@ -14,7 +14,7 @@ class Report < ApplicationRecord
   belongs_to :comment, optional: true
 
   validates :reason, presence: true
-  validates :user_id, uniqueness: { scope: [:post_id, :comment_id], message: "already reported this content" }
+  validates :user_id, uniqueness: { scope: [ :post_id, :comment_id ], message: "already reported this content" }
 
   scope :pending_reviews, -> { where(status: :pending).order(created_at: :desc) }
   scope :with_post_reports, -> { where.not(post_id: nil) }
