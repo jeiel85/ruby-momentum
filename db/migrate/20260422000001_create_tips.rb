@@ -11,6 +11,5 @@ class CreateTips < ActiveRecord::Migration[8.1]
     end
 
     add_index :tips, :stripe_payment_intent_id
-    add_index :tips, :recipient_id
   end
 end

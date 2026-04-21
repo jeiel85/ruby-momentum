@@ -23,8 +23,6 @@ class User < ApplicationRecord
   # Profile fields
   has_one_attached :uploaded_avatar
 
-  devise :validatable
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

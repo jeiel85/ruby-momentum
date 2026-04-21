@@ -10,7 +10,7 @@
 
     <div class="flex-1">
       <div class="flex items-center justify-between mb-3">
-        <h3 class="font-black text-white text-xl tracking-tight">Post Artist</h3>
+        <h3 class="font-black text-white text-xl tracking-tight"><%= post.user.display_name %></h3>
         <div class="flex items-center gap-2">
           <span class="text-indigo-400/60 text-xs font-bold uppercase tracking-widest"><%= time_ago_in_words(post.created_at) %> ago</span>
           <% if user_signed_in? && current_user != post.user %>

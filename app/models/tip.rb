@@ -8,7 +8,7 @@ class Tip < ApplicationRecord
   scope :succeeded, -> { where(status: "succeeded") }
   scope :for_user, ->(user_id) { where(recipient_id: user_id) }
 
-  def USD
+  def usd
     amount.to_f / 100
   end
 

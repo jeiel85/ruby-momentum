@@ -22,6 +22,9 @@ class SubscriptionsController < ApplicationController
     session = Stripe::Checkout::Session.create(
       customer: customer,
       mode: "subscription",
+      subscription_data: {
+        metadata: { user_id: current_user.id }
+      },
       line_items: [{
         price: Rails.application.config.stripe[:"#{plan}_price_id"],
         quantity: 1
@@ -71,7 +74,8 @@ class SubscriptionsController < ApplicationController
   private
 
   def handle_subscription_event(stripe_subscription)
-    user = User.find_by(email: stripe_subscription.customer.email)
+    user_id = stripe_subscription.metadata.user_id
+    user = User.find_by(id: user_id)
     return unless user
 
     subscription = user.subscription || user.build_subscription
@@ -86,7 +90,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def handle_subscription_deleted(stripe_subscription)
-    user = User.find_by(email: stripe_subscription.customer.email)
+    user_id = stripe_subscription.metadata.user_id
+    user = User.find_by(id: user_id)
     return unless user
 
     subscription = user.subscription
