@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: '3.4.9'
 
       - name: Disable frozen mode for bundle install
         run: bundle config set frozen false
@@ -40,7 +40,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: '3.4.9'
 
       - name: Disable frozen mode
         run: bundle config set frozen false
@@ -62,7 +62,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: '3.4.9'
 
       - name: Disable frozen mode
         run: bundle config set frozen false
@@ -96,7 +96,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: '3.4.9'
 
       - name: Disable frozen mode
         run: bundle config set frozen false
@@ -122,7 +122,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          bundler-cache: true
+          ruby-version: '3.4.9'
 
       - name: Disable frozen mode
         run: bundle config set frozen false
