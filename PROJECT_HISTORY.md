@@ -17,6 +17,7 @@
     - `index` 액션에서 최신 포스트 순으로 정렬하도록 수정
 - CI 설정 수정:
   - `.github/workflows/ci.yml`: `bundler-cache: true` 제거 및 수동 `bundle install` 방식으로 변경 (Gemfile.lock 불일치로 인한 frozen mode 에러 해결)
-- UI 개선 진행 중: 
+- UI 개선 및 기능 보완: 
   - `application.html.erb`: Stripe JS SDK 추가 및 네비게이션에 배지 포함 이름 표시
   - `_post.html.erb`: 실제 작성자 정보 표시
+  - `index.html.erb`: 포스트 본인 여부에 따른 수정/팁 버튼 조건부 표시 로직 추가
