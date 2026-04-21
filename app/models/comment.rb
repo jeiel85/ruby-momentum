@@ -6,4 +6,3 @@ class Comment < ApplicationRecord
 
   after_create_commit { broadcast_append_to post, partial: "comments/comment", locals: { comment: self } }
 end
-

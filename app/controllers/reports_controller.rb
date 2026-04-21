@@ -23,4 +23,3 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:post_id, :comment_id, :reason, :description)
   end
 end
-

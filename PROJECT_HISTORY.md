@@ -56,3 +56,11 @@
   - `Report` 모델: 배열 대괄호 내 공백 추가 (`Layout/SpaceInsideArrayBrackets` 준수)
 - 테스트 데이터 수정:
   - `test/fixtures/users.yml`: 유저 이메일 중복 방지를 위해 더 고유한 이메일 형식으로 업데이트
+
+## 2026-04-24
+- 데이터베이스 스키마 변경:
+  - `posts` 테이블에 `user_id` 외래 키 추가 (`AddUserToPosts` 마이그레이션)
+- 코드 스타일 및 린트 오류 수정:
+  - 지정된 모델 및 컨트롤러 파일 끝에 누락된 줄 바꿈(newline) 추가
+  - `config/initializers/devise.rb`: 문자열 따옴표 스타일 수정 및 배열 대괄호 내 공백 추가
+  - `app/models/user.rb`: 배열 대괄호 내 공백 추가
