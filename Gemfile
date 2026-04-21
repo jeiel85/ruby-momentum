@@ -49,6 +49,9 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# AWS S3 / Cloudflare R2 for image storage
+gem "aws-sdk-s3", require: false
+
 # SEO - Sitemap generation
 gem "sitemap_generator", group: :production
 
