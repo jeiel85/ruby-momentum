@@ -42,3 +42,11 @@
   - `CommentsController`, `Gemfile`: 배열 대괄호 내 공백 추가 (`Layout/SpaceInsideArrayBrackets` 준수)
 - 모델 버그 수정:
   - `Post` 모델: `validates :validate_image`를 `validate :validate_image`로 수정하여 사용자 정의 유효성 검사 메서드가 올바르게 호출되도록 수정
+
+## 2026-04-23
+- 코드 스타일 및 린트 오류 수정:
+  - `Like`, `Comment`, `Bookmark` 모델 파일 끝에 개행(newline) 추가
+  - `Tips`, `Subscriptions`, `Reports`, `Comments` 컨트롤러 파일 끝에 개행(newline) 추가
+  - `Report` 모델: 배열 대괄호 내 공백 추가 (`Layout/SpaceInsideArrayBrackets` 준수)
+- 테스트 데이터 수정:
+  - `test/fixtures/users.yml`: 유저 이메일 중복 방지를 위해 더 고유한 이메일 형식으로 업데이트
