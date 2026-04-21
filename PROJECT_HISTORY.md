@@ -16,8 +16,13 @@
     - 포스트 수정/삭제 시 본인 확인 로직 추가 (보안 강화)
     - `index` 액션에서 최신 포스트 순으로 정렬하도록 수정
 - CI 설정 수정:
-  - `.github/workflows/ci.yml`: `bundler-cache: true` 제거 및 수동 `bundle install` 방식으로 변경 (Gemfile.lock 불일치로 인한 frozen mode 에러 해결)
-  - `bin/` 디렉토리 내 실행 파일들에 대한 실행 권한 부여 (`git update-index --chmod=+x`)
+  - `.github/workflows/ci.yml`: 
+    - `bundler-cache: true` 제거 및 수동 `bundle install` 방식으로 변경 (Gemfile.lock 불일치로 인한 frozen mode 에러 해결)
+    - `bin/` 디렉토리 내 실행 파일들에 대한 실행 권한 부여 (`git update-index --chmod=+x`)
+    - 테스트 실행 전 `db:migrate`를 명시적으로 실행하도록 수정 (구버전 schema.rb로 인한 마이그레이션 누락 방지)
+- 스타일 및 린트 이슈 수정:
+  - 여러 컨트롤러 파일 끝에 개행 추가
+  - `Gemfile` 및 컨트롤러 내 배열 대괄호 공백 규칙 준수
 - UI 개선 및 기능 보완: 
   - `application.html.erb`: Stripe JS SDK 추가 및 네비게이션에 배지 포함 이름 표시
   - `_post.html.erb`: 실제 작성자 정보 표시
