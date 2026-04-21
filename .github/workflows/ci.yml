@@ -18,9 +18,15 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Disable frozen mode for bundle install
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
+
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
       
@@ -35,6 +41,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Disable frozen mode
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
@@ -52,6 +64,12 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Disable frozen mode
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
+
       - name: Prepare RuboCop cache
         uses: actions/cache@v5
         env:
@@ -68,12 +86,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: valkey/valkey:8
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
@@ -86,22 +98,20 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Disable frozen mode
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
+
       - name: Run tests
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test
 
   system-test:
     runs-on: ubuntu-latest
 
-    # services:
-    #  redis:
-    #    image: valkey/valkey:8
-    #    ports:
-    #      - 6379:6379
-    #    options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
@@ -114,11 +124,15 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Disable frozen mode
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
+
       - name: Run System Tests
         env:
           RAILS_ENV: test
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
         run: bin/rails db:test:prepare test:system
 
       - name: Keep screenshots from failed system tests

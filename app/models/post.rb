@@ -3,11 +3,30 @@ class Post < ApplicationRecord
   MAX_IMAGE_SIZE = 10.megabytes
 
   validates :body, presence: true
+
+  belongs_to :user
+
   has_one_attached :image
 
-  validate :validate_image, if: -> { image.attached? }
+  has_many :likes, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  validates :validate_image, if: -> { image.attached? }
 
   broadcasts_to ->(post) { "posts" }, inserts_by: :prepend
+
+  def liked_by?(user)
+    likes.exists?(user_id: user.id)
+  end
+
+  def bookmarked_by?(user)
+    bookmarks.exists?(user_id: user.id)
+  end
+
+  def like_count
+    likes.count
+  end
 
   private
 
@@ -26,3 +45,4 @@ class Post < ApplicationRecord
   rescue StandardError => e
     errors.add(:image, "could not be processed: #{e.message}")
   end
+end
