@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  validates :validate_image, if: -> { image.attached? }
+  validate :validate_image, if: -> { image.attached? }
 
   broadcasts_to ->(post) { "posts" }, inserts_by: :prepend
 
