@@ -6,6 +6,25 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Momentum">
     <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="<%= content_for(:meta_description) || 'Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는 Ruby on Rails 소셜 포스팅 애플리케이션' %>">
+    <meta name="keywords" content="social media, posting, ruby on rails, hotwire, turbo">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= content_for(:title) || 'Momentum' %>">
+    <meta property="og:description" content="<%= content_for(:meta_description) || 'Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는 소셜 포스팅 애플리케이션' %>">
+    <meta property="og:image" content="<%= content_for(:og_image) || 'https://repository-images.githubusercontent.com/1207599499/c0e6d1cc-324c-395b-dce6-9183f496c387f1c4b946' %>">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="<%= request.original_url %>">
+    <meta property="twitter:title" content="<%= content_for(:title) || 'Momentum' %>">
+    <meta property="twitter:description" content="<%= content_for(:meta_description) || 'Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는 소셜 포스팅 애플리케이션' %>">
+    <meta property="twitter:image" content="<%= content_for(:og_image) || 'https://repository-images.githubusercontent.com/1207599499/c0e6d1cc-324c-395b-dce6-9183f496c387f1c4b946' %>">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
