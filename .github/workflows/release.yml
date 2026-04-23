@@ -36,13 +36,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Disable frozen mode
+        run: bundle config set frozen false
+
+      - name: Install dependencies
+        run: bundle install
+
       - name: Build and Push Docker Image (GHCR)
         env:
           KAMAL_REGISTRY_USERNAME: ${{ github.actor }}
           KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # 1. GitHub Container Registry (GHCR)로 Docker 이미지 자동 빌드 및 푸시
-          bin/kamal build --push
+          bundle exec kamal build --push
 
           # 2. 실제 서버에 자동 배포하려면 아래 주석을 해제하고,
           #    GitHub Secrets에 SSH_PRIVATE_KEY 및 RAILS_MASTER_KEY를 추가하세요.

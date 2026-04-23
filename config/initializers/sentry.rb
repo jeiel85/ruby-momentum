@@ -20,3 +20,4 @@ if ENV["SENTRY_DSN"].present?
     end
   end
 end
+
