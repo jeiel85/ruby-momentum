@@ -19,25 +19,36 @@ jobs:
 
   # Deploy on merge to master
   deploy:
-    needs: []
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Deploy to Render (example)
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.9'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker Image (GHCR)
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          KAMAL_REGISTRY_USERNAME: ${{ github.actor }}
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Example Render deployment via API
-          # Replace with your actual deployment logic
-          echo "Deploying to production..."
-          # curl -X PUT https://api.render.com/v1/services/$RENDER_SERVICE_ID/builds \
-          #   -H "Authorization: Bearer $RENDER_API_KEY" \
-          #   -H "Content-Type: application/json" \
-          #   -d '{"clearCache": true}'
+          # 1. GitHub Container Registry (GHCR)로 Docker 이미지 자동 빌드 및 푸시
+          bin/kamal build --push
+
+          # 2. 실제 서버에 자동 배포하려면 아래 주석을 해제하고,
+          #    GitHub Secrets에 SSH_PRIVATE_KEY 및 RAILS_MASTER_KEY를 추가하세요.
+          # eval $(ssh-agent -s)
+          # echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
+          # RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} bin/kamal deploy
 
       - name: Create GitHub Release
         uses: actions/create-release@v1

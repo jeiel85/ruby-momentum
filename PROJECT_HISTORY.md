@@ -68,3 +68,6 @@
   - 현재 상태: `.github/workflows/ci.yml`을 통한 테스트, 린트, 보안 스캔 자동화 완료.
   - 개선 필요 사항: Docker 이미지 빌드 및 레지스트리(GHCR) Push 자동화 미비, Kamal/Render 배포 로직이 자리표시자 상태임.
   - 제안: 컨테이너 기반 배포를 위한 Docker 빌드 파이프라인 구축 및 실제 배포 스크립트 활성화 권장.
+- CD 파이프라인(배포 자동화) 구축:
+  - `config/deploy.yml`: Kamal 레지스트리를 `localhost:5555`에서 GitHub Container Registry(`ghcr.io`)로 변경하고 인증 방식 설정.
+  - `.github/workflows/release.yml`: master 브랜치 푸시 시 `bin/kamal build --push`를 통해 Docker 이미지를 자동으로 빌드하고 GHCR에 푸시하도록 설정. (실제 서버 정보 및 SSH 키 세팅 시 자동 배포도 즉시 가능하도록 주석 처리된 배포 스크립트 포함)
