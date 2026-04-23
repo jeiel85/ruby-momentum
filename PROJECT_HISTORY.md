@@ -64,3 +64,7 @@
   - 지정된 모델 및 컨트롤러 파일 끝에 누락된 줄 바꿈(newline) 추가
   - `config/initializers/devise.rb`: 문자열 따옴표 스타일 수정 및 배열 대괄호 내 공백 추가
   - `app/models/user.rb`: 배열 대괄호 내 공백 추가
+- CI/CD 및 빌드 자동화 상태 검토:
+  - 현재 상태: `.github/workflows/ci.yml`을 통한 테스트, 린트, 보안 스캔 자동화 완료.
+  - 개선 필요 사항: Docker 이미지 빌드 및 레지스트리(GHCR) Push 자동화 미비, Kamal/Render 배포 로직이 자리표시자 상태임.
+  - 제안: 컨테이너 기반 배포를 위한 Docker 빌드 파이프라인 구축 및 실제 배포 스크립트 활성화 권장.
