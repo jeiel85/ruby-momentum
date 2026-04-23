@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  # Auto-merge Dependabot PRs
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Deploy on merge to master
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.9'
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker Image (GHCR)
+        env:
+          KAMAL_REGISTRY_USERNAME: ${{ github.actor }}
+          KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. GitHub Container Registry (GHCR)로 Docker 이미지 자동 빌드 및 푸시
+          bin/kamal build --push
+
+          # 2. 실제 서버에 자동 배포하려면 아래 주석을 해제하고,
+          #    GitHub Secrets에 SSH_PRIVATE_KEY 및 RAILS_MASTER_KEY를 추가하세요.
+          # eval $(ssh-agent -s)
+          # echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add -
+          # RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }} bin/kamal deploy
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+  # Notify on deployment (example Slack notification)
+  notify:
+    needs: [deploy]
+    runs-on: ubuntu-latest
+    if: always() && github.ref == 'refs/heads/master'
+    steps:
+      - name: Send deployment notification
+        run: |
+          echo "Deployment completed with status: ${{ job.status }}"
+          # Add Slack notification here:
+          # curl -X POST -H 'Content-type: application/json' \
+          #   --data '{"text":"Deployment ${{ job.status }} for Momentum!"}' \
+          #   ${{ secrets.SLACK_WEBHOOK }}

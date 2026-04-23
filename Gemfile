@@ -5,7 +5,7 @@ gem "rails", "~> 8.1.3"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record in development/test
-gem "sqlite3", ">= 2.1", groups: [:development, :test]
+gem "sqlite3", ">= 2.1", groups: [ :development, :test ]
 
 # Use PostgreSQL as the database for production
 gem "pg", "~> 1.1", group: :production
@@ -24,7 +24,7 @@ gem "jbuilder"
 
 gem "devise"
 gem "omniauth-google-oauth2"
-gem "dotenv-rails", groups: [:development, :test]
+gem "dotenv-rails", groups: [ :development, :test ]
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -36,6 +36,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+
+# Rate limiting and throttling [https://github.com/rack/rack-attack]
+gem "rack-attack"
 
 # Redis for caching (production)
 gem "redis", ">= 5.0", group: :production
@@ -55,6 +58,15 @@ gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
+
+# AWS S3 / Cloudflare R2 for image storage
+gem "aws-sdk-s3", require: false
+
+# SEO - Sitemap generation
+gem "sitemap_generator", group: :production
+
+# Monetization - Stripe payments
+gem "stripe"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -1,9 +1,48 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
-  
-  resources :posts
+
+  namespace :admin do
+    get "dashboard" => "dashboard#index"
+    get "reports" => "dashboard#reports"
+    patch "reports/:id/resolve" => "dashboard#resolve_report", as: :resolve_report
+  end
+
+  resources :posts do
+    resources :reports, only: :create
+    resources :comments, only: :create
+    resource :like, only: [:create, :destroy]
+    resource :bookmark, only: [:create, :destroy]
+  end
+
+  resources :bookmarks, only: :index
+
+  resources :reports, only: [] do
+    member do
+      patch :resolve
+    end
+  end
+
+  # Subscription routes
+  resource :subscription, only: [:show, :create] do
+    member do
+      delete :cancel
+    end
+  end
+
+  # Tip routes
+  resources :tips, only: [:index, :create] do
+    collection do
+      post :webhook
+    end
+  end
+
+  # User tips (tip a specific user)
+  resources :users, only: [] do
+    resources :tips, only: [:create]
+  end
+
   root "posts#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
