@@ -40,6 +40,13 @@ gem "solid_cable"
 # Rate limiting and throttling [https://github.com/rack/rack-attack]
 gem "rack-attack"
 
+# Redis for caching (production)
+gem "redis", ">= 5.0", group: :production
+
+# Monitoring and error tracking
+gem "sentry-rails"
+gem "sentry-ruby"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
