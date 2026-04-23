@@ -28,8 +28,8 @@ Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 # Optional: Custom view for throttled responses
 Rack::Attack.throttled_response = lambda do |env|
   retry_after = (env["rack.attack.match_data"] || {})["retry_after"] || 10
-  [429, {
+  [ 429, {
     "Content-Type" => "application/json",
     "Retry-After" => retry_after.to_s
-  }, { error: "Rate limit exceeded. Please try again later." }.to_json]
+  }, { error: "Rate limit exceeded. Please try again later." }.to_json ]
 end

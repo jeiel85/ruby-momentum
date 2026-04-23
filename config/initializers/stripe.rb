@@ -16,6 +16,6 @@ Rails.application.configure do
     premium_monthly_price_id: ENV["STRIPE_PREMIUM_MONTHLY_PRICE_ID"],
     premium_yearly_price_id: ENV["STRIPE_PREMIUM_YEARLY_PRICE_ID"],
     # Tips configuration (in cents)
-    tip_amounts: [500, 1000, 2000, 5000], # $5, $10, $20, $50
+    tip_amounts: [ 500, 1000, 2000, 5000 ] # $5, $10, $20, $50
   }
 end
