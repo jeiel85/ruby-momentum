@@ -34,7 +34,7 @@ jobs:
           ruby-version: '3.4.9'
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Disable frozen mode
         run: bundle config set frozen false
