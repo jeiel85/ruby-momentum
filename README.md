@@ -11,14 +11,41 @@ Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는
 
 ## 주요 기능
 
+### 사용자 경험
 - **Google 소셜 로그인** — Devise + OmniAuth를 통한 Google 계정 로그인
 - **포스트 관리** — 이미지 첨부가 가능한 게시글 작성, 조회, 수정, 삭제
 - **실시간 업데이트** — ActionCable(Hotwire Turbo Streams)을 통해 새 게시글 및 댓글 즉시 반영
-- **소셜 기능** — 게시글 좋아요, 북마크, 실시간 댓글 기능
-- **수익화(Monetization)** — Stripe 연동 프리미엄 구독(Premium Membership) 및 창작자 팁(Tips) 기능
-- **클라우드 스토리지** — AWS S3 / Cloudflare R2를 통한 이미지 CDN 구성
-- **반응형 UI** — Tailwind CSS로 스타일링된 모던한 인터페이스
+- **소셜 상호작용** — 좋아요, 북마크, 실시간 댓글 (#7)
+
+### 수익화
+- **프리미엄 구독** — Stripe 연동 월간/연간 멤버십 (#10, #19)
+- **크리에이터 후원** — 게시글별 소액 후원(Tips) 기능 (#19)
+
+### 보안 및 운영
+- **Rate Limiting** — Rack::Attack 기반 무차별 대입 및 도배 방어 (#12)
+- **파일 업로드 보안** — 악성 스크립트 차단 및 확장자/용량 검증 (#14)
+- **콘텐츠 신고** — 부적절한 컨텐츠 사용자 신고 및 관리자 리뷰 (#13)
+- **관리자 백오피스** — ActiveAdmin 기반 유저/게시글 관리 대시보드 (#16)
+
+### 인프라
+- **클라우드 스토리지** — AWS S3 / CloudFront CDN을 통한 이미지 제공 (#15)
+- **백그라운드 Job** — 이미지 리사이징 등 무거운 작업 비동기 처리 (#21)
+- **CI/CD 파이프라인** — GitHub Actions 기반 테스트/린트/보안 스캔 및 Docker 빌드 자동화
 - **프로덕션 배포** — Docker + Kamal 배포 지원
+
+### 마케팅 / 성장
+- **SEO 최적화** — 메타 태그, Open Graph, 동적 사이트맵 (#3, #17)
+- **소셜 공유** — 게시글 SNS 공유 버튼 및 링크 복사 (#5)
+- **사용자 분석** — Google Analytics / Plausible 연동 (#4)
+
+## 🗺 로드맵
+
+| 이슈 | 작업 내용 | 상태 |
+|------|----------|:----:|
+| [#6](https://github.com/jeiel85/ruby-momentum/issues/6) | 프로필 관리 시스템 — 닉네임, 소개글, 아바타 편집 | ⬜ |
+| [#8](https://github.com/jeiel85/ruby-momentum/issues/8) | 통합 알림 시스템 — In-app + Email 알림 | ⬜ |
+| [#9](https://github.com/jeiel85/ruby-momentum/issues/9) | 포스트 검색 및 해시태그 분류 — 전문 검색 | ⬜ |
+| [#20](https://github.com/jeiel85/ruby-momentum/issues/20) | 보안 고도화 — CSP, 의존성 취약점 스캔 | ⬜ |
 
 ## 기술 스택
 
