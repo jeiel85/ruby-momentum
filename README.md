@@ -2,6 +2,13 @@
 
 Google OAuth 인증, 실시간 업데이트, 이미지 업로드를 지원하는 Ruby on Rails 소셜 포스팅 애플리케이션입니다.
 
+## 🚀 데모
+
+- **랜딩 페이지** (GitHub Pages): https://jeiel85.github.io/ruby-momentum/
+- **Live Demo** (Render): https://ruby-momentum.onrender.com *(Render 무료 티어 — 첫 접속 시 ~30초 콜드스타트 가능)*
+
+> 두 링크 모두 실제 배포가 완료된 후 활성화됩니다. 배포 가이드는 아래 [Render 배포](#render-배포) 섹션 참고.
+
 ## 주요 기능
 
 - **Google 소셜 로그인** — Devise + OmniAuth를 통한 Google 계정 로그인
@@ -92,14 +99,28 @@ app/
 
 ## Render 배포
 
-이 앱은 Render 배포를 위해 다음과 같이 구성되어 있습니다.
+이 앱은 Render 배포를 위해 `render.yaml` Blueprint로 구성되어 있습니다.
 
-- **Web Service** — Puma 웹 서버
-- **Database** — Render PostgreSQL
+- **Web Service** — Puma 웹 서버 (`startCommand: bundle exec puma -C config/puma.rb`)
+- **Database** — Render PostgreSQL (Blueprint에서 자동 프로비저닝)
 - **빌드 명령어** — `bundle install && rails assets:precompile && rails db:migrate`
-- **시작 명령어** — `bundle exec puma -C config/puma.rb`
+- **헬스체크** — `/up` (Rails 기본 health endpoint)
 
-배포 전 Render 대시보드에서 위 환경변수를 설정해주세요.
+### 배포 절차
+
+1. Render 대시보드 → **New +** → **Blueprint** → 본 GitHub 리포지토리 연결
+2. `render.yaml`을 인식하면 web 서비스 + PostgreSQL이 자동 생성됨
+3. 자동 생성 환경변수: `DATABASE_URL`, `SECRET_KEY_BASE` *(generateValue)*, `RAILS_ENV`, `RAILS_LOG_TO_STDOUT`, `RAILS_SERVE_STATIC_FILES` 등
+4. **수동 입력 환경변수** (Render 대시보드 → Environment 탭):
+   - `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`
+   - `STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+   - `STRIPE_PREMIUM_MONTHLY_PRICE_ID`, `STRIPE_PREMIUM_YEARLY_PRICE_ID`
+5. Google Cloud Console → OAuth 클라이언트 설정에서 **승인된 리디렉션 URI**에 `https://<your-app>.onrender.com/users/auth/google_oauth2/callback` 추가
+6. (선택) `ACTIVE_STORAGE_SERVICE`는 기본 `local`이며, S3/R2 사용 시 별도 키 추가
+
+### GitHub Pages 랜딩 페이지
+
+`docs/` 디렉토리에 정적 랜딩 페이지가 있습니다. GitHub 리포지토리 **Settings → Pages → Branch: `master` / `/docs`**로 설정하면 자동 배포됩니다. 배포 후 `docs/index.html` 하단 스크립트의 `DEMO_URL`을 실제 Render URL로 교체하세요.
 
 ## 라이선스
 
